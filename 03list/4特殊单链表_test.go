@@ -5,7 +5,7 @@
  * @Desc:
  */
 
-package _3链表
+package _3list
 
 import (
 	"fmt"
