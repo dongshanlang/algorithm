@@ -8,6 +8,7 @@
 package _3list
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -23,11 +24,34 @@ func TestMidOrUpMid(t *testing.T) {
 	n2 := &Node{Value: 2}
 	n3 := &Node{Value: 3}
 	n4 := &Node{Value: 4}
+	n5 := &Node{Value: 5}
+	n6 := &Node{Value: 6}
+
 	n1.Next = n2
 	n2.Next = n3
 	n3.Next = n4
-	getMidOrUpMid(n1)
-}
-func getMidOrUpMid(node *Node) {
+	n4.Next = n5
+	n5.Next = n6
 
+	fmt.Println(getMidOrUpMid(n1))
+}
+func getMidOrUpMid(node *Node) *Node {
+	if node == nil || node.Next == nil {
+		return node
+	}
+	slowPointer := node
+	fastPointer := node.Next
+	for {
+		if fastPointer.Next != nil {
+			slowPointer = slowPointer.Next
+		} else {
+			break
+		}
+		if fastPointer.Next.Next != nil {
+			fastPointer = fastPointer.Next.Next
+		} else {
+			break
+		}
+	}
+	return slowPointer
 }
