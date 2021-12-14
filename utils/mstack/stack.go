@@ -32,3 +32,15 @@ func (s *Stack) Pop() interface{} {
 	}
 	return item
 }
+func (s *Stack) Peek() interface{} {
+	if s.list.Back() != nil {
+		return s.list.Back().Value
+	}
+	return nil
+}
+func (s *Stack) Len() int {
+	return s.list.Len()
+}
+func (s *Stack) IsEmpty() bool {
+	return s.list.Len() == 0
+}
