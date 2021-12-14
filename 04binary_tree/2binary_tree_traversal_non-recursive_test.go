@@ -72,7 +72,6 @@ func postOrderNonRecursiveTraverse(head *Node) {
 	}
 }
 func TestPostOrderNonRecursiveTraverse(t *testing.T) {
-
 	n1 := &Node{Value: 1}
 	n2 := &Node{Value: 2}
 	n3 := &Node{Value: 3}
@@ -87,7 +86,6 @@ func TestPostOrderNonRecursiveTraverse(t *testing.T) {
 	n3.Left = n6
 	n3.Right = n7
 	postOrderNonRecursiveTraverse(n1)
-
 }
 
 //先序
