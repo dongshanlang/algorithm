@@ -5,27 +5,27 @@
  * @Desc:
  */
 
-package mlist
+package mqueue
 
 import "container/list"
 
-type MList struct {
+type MQueue struct {
 	list *list.List
 }
 
-func New() *MList {
-	return &MList{list: list.New()}
+func New() *MQueue {
+	return &MQueue{list: list.New()}
 }
-func (l *MList) PushBack(item interface{}) {
+func (l *MQueue) PushBack(item interface{}) {
 	l.list.PushBack(item)
 }
-func (l *MList) Front() interface{} {
+func (l *MQueue) Front() interface{} {
 	if l.list.Front() != nil {
 		return l.list.Front().Value
 	}
 	return nil
 }
-func (l *MList) PopFront() interface{} {
+func (l *MQueue) PopFront() interface{} {
 	if l.list.Front() != nil {
 		item := l.list.Front()
 		l.list.Remove(item)
@@ -33,9 +33,9 @@ func (l *MList) PopFront() interface{} {
 	}
 	return nil
 }
-func (l *MList) Len() int {
+func (l *MQueue) Len() int {
 	return l.list.Len()
 }
-func (l *MList) IsEmpty() bool {
+func (l *MQueue) IsEmpty() bool {
 	return l.list.Len() == 0
 }

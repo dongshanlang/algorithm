@@ -8,7 +8,7 @@
 package _4binary_tree
 
 import (
-	"algorithm/utils/mlist"
+	"algorithm/utils/mqueue"
 	"fmt"
 	"testing"
 )
@@ -20,7 +20,7 @@ func getBiggestWidthOfTree(head *Node) int {
 		return 0
 	}
 	var currentNode *Node
-	var l = mlist.New()
+	var l = mqueue.New()
 	l.PushBack(head)
 	var currentLevelEnd = head
 	var nextLevelEnd *Node = nil

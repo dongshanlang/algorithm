@@ -8,37 +8,49 @@
 package _4binary_tree
 
 import (
-	"algorithm/utils/mlist"
+	"algorithm/utils/mqueue"
 	"fmt"
+	"go/types"
 	"testing"
 )
 
 //二叉树的序列化反序列化
 //1。可以用先序或者中序或者后序护着按层遍历，来实现二叉树的序列化
 //2。用了什么方式序列化，就用什么方式反序列化
-func SerializeTree(head *Node) {
+func SerializeTree(head *Node) *mqueue.MQueue {
 	if head == nil {
-		return
+		return nil
 	}
-	l := mlist.New()
+	l := mqueue.New()
 	l.PushBack(head)
-	serializeList := mlist.New()
-
+	serializeList := mqueue.New()
+	serializeList.PushBack(head)
 	var node *Node
 	for !l.IsEmpty() {
 		node = l.PopFront().(*Node)
 		if node.Left != nil {
+			serializeList.PushBack(node.Left)
 			l.PushBack(node.Left)
 		} else {
-
+			serializeList.PushBack(nil)
 		}
 		if node.Right != nil {
 			l.PushBack(node.Right)
+			serializeList.PushBack(node.Right)
 		} else {
-
+			serializeList.PushBack(nil)
 		}
-		fmt.Printf("%d ", node.Value)
+		//fmt.Printf("%+v ", node)
 	}
+	//for !serializeList.IsEmpty() {
+	//	item := serializeList.PopFront()
+	//	if item == nil {
+	//		fmt.Printf("%+v ", item)
+	//	} else {
+	//		fmt.Printf("%+v ", item.(*Node).Value)
+	//	}
+	//}
+	return serializeList
 }
 func TestSerialiseTree(t *testing.T) {
 	n1 := &Node{Value: 1}
@@ -58,5 +70,44 @@ func TestSerialiseTree(t *testing.T) {
 	n3.Right = n7
 	n5.Left = n8
 	n5.Right = n9
-	SerializeTree(n1)
+	serialization := SerializeTree(n1)
+	head := Deserialization(serialization)
+	fmt.Println(head)
+}
+func Deserialization(list *mqueue.MQueue) *Node {
+	if list.IsEmpty() {
+		return nil
+	}
+	var node *Node
+	var queue = mqueue.New()
+	var head = generateNode(list.PopFront())
+	queue.PushBack(head)
+	for !queue.IsEmpty() {
+		node = queue.PopFront().(*Node)
+		node.Left = generateNode(list.PopFront())
+		node.Right = generateNode(list.PopFront())
+		if node.Left != nil {
+			queue.PushBack(node.Left)
+		}
+		if node.Right != nil {
+			queue.PushBack(node.Right)
+		}
+	}
+	return head
+}
+func generateNode(value interface{}) *Node {
+	switch value.(type) {
+	case *Node:
+		node := value.(*Node)
+		return node
+	case types.Nil:
+		return nil
+	case interface{}:
+		return nil
+	case int:
+		return &Node{Value: value.(int)}
+	default:
+		fmt.Println("unknown type")
+		return nil
+	}
 }
