@@ -56,6 +56,8 @@ func TestHeapSort(t *testing.T) {
 	}
 	fmt.Println(arr)
 }
+
+//从最后往上算，这个性能更好
 func TestHeapSort2(t *testing.T) {
 	arr := []int{3, 2, 5, 7, 9, 1, 4, 8, 6, 5, 3, 7}
 	fmt.Println(arr)
@@ -72,7 +74,6 @@ func TestHeapSort2(t *testing.T) {
 }
 
 //0,1,2,3,4
-//从最后往上算
 //数组构建大根堆、小根堆结构
 func HeapInsert(arr []int, index int) {
 	if index <= 0 || index > len(arr)-1 {
