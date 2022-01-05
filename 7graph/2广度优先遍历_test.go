@@ -19,6 +19,7 @@ var (
 	n3 = NewNode(3)
 	n5 = NewNode(5)
 	n6 = NewNode(6)
+	g  = NewGraph()
 )
 
 func TestBreadthFirstSearch(t *testing.T) {
@@ -40,14 +41,14 @@ func TestBreadthFirstSearch(t *testing.T) {
 	}
 }
 func InitGraph() {
-	//g := Graph{}
+
 	n1.NextNodes.PushBack(n2)
 	n1.Out++
 	n2.In++
 	n1.Edges.PushBack(NewEdge(1, n1, n2))
 	n1.NextNodes.PushBack(n3)
 	n1.Out++
-	n1.In++
+	n3.In++
 	n1.Edges.PushBack(NewEdge(3, n1, n3))
 
 	n2.NextNodes.PushBack(n5)
@@ -73,5 +74,13 @@ func InitGraph() {
 	n3.NextNodes.PushBack(n1)
 	n3.Edges.PushBack(NewEdge(1, n3, n1))
 	n3.Out++
-	n1.In++
+	//n1.In++
+
+	g.Nodes[1] = n1
+	g.Nodes[2] = n2
+	g.Nodes[3] = n3
+	//g.Nodes[4] = n4
+	g.Nodes[5] = n5
+	g.Nodes[6] = n6
+
 }

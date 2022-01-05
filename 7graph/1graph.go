@@ -12,9 +12,17 @@ import (
 )
 
 type Graph struct {
-	Nodes []*node
+	Nodes map[int]*node
 	Edges []*edge
 }
+
+func NewGraph() *Graph {
+	return &Graph{
+		Nodes: map[int]*node{},
+		Edges: nil,
+	}
+}
+
 type node struct {
 	ID        int
 	Value     int
