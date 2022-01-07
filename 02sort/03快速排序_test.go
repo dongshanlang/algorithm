@@ -39,39 +39,36 @@ p         R
 //pointer指向的当前数<n: pointer数与left数交换，pointer++
 //>n: pointer数与 right交换
 //==n: pointer++
-func partition(arr []int, pivot int) (leftEnd, rightBegin int) {
-	pivotValue := arr[pivot]
-	fmt.Println(pivot, pivotValue)
-	arr[pivot], arr[len(arr)-1] = arr[len(arr)-1], arr[pivot]
-	fmt.Println(arr)
-	left := 0
-	right := len(arr) - 2
-	pointer := 0
-	for pointer <= right {
-		fmt.Println(left, right, pointer)
-		if arr[pointer] < pivotValue {
-			arr[pointer], arr[left] = arr[left], arr[pointer]
-			left++
-			pointer++
-		} else if arr[pointer] > pivotValue {
-			arr[pointer], arr[right] = arr[right], arr[pointer]
-			right--
-		} else {
-			pointer++
-		}
-		fmt.Println(arr)
+func partition(arr []int, startIndex, stopIndex, pivotIndex int) (leftEnd, rightBegin int) {
+	if startIndex >= stopIndex || startIndex >= len(arr) || stopIndex >= len(arr) {
+		panic("error index")
 	}
-
-	arr[right+1], arr[len(arr)-1] = arr[len(arr)-1], arr[right+1]
-	return left, right + 1
-
+	leftEnd = startIndex
+	rightBegin = stopIndex - 1
+	pivotValue := arr[pivotIndex]
+	arr[pivotIndex], arr[stopIndex] = arr[stopIndex], arr[pivotIndex]
+	pointerIndex := startIndex
+	for pointerIndex <= rightBegin {
+		if arr[pointerIndex] < pivotValue {
+			arr[pointerIndex], arr[leftEnd] = arr[leftEnd], arr[pointerIndex]
+			pointerIndex++
+			leftEnd++
+		} else if arr[pointerIndex] > pivotValue {
+			arr[pointerIndex], arr[rightBegin] = arr[rightBegin], arr[pointerIndex]
+			rightBegin--
+		} else {
+			pointerIndex++
+		}
+	}
+	arr[rightBegin+1], arr[stopIndex] = arr[stopIndex], arr[rightBegin+1]
+	return leftEnd, rightBegin + 1
 }
 func quickSort(arr []int, left, right int) {
 	if right-left < 1 {
 		return
 	}
 	pivot := left + int(rand.Int31n(int32(right-left)))
-	leftEnd, rightBegin := partition(arr, pivot)
+	leftEnd, rightBegin := partition(arr, left, right, pivot)
 	quickSort(arr, left, leftEnd-1)
 	quickSort(arr, rightBegin+1, right)
 }
@@ -84,7 +81,7 @@ func TestQuickSort(t *testing.T) {
 func TestPartition(t *testing.T) {
 	arr := []int{1, 2, 4, 6, 7, 2, 4, 36, 4, 1}
 	fmt.Println(arr)
-	fmt.Println(partition(arr, 2))
+	fmt.Println(partition(arr, 0, len(arr)-1, 2))
 	fmt.Println(arr)
 }
 
