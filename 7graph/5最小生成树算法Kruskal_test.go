@@ -90,6 +90,9 @@ func TestKruskal(t *testing.T) {
 	k.Init(initGraph())
 	k.HeapSortEdges()
 	k.BuildMinimumSpanningTree()
+	for _, e := range k.MinimumSpanningTree {
+		fmt.Printf("%d ", e.Value)
+	}
 	fmt.Println(k.g.Edges)
 }
 func initGraph() *Graph {
