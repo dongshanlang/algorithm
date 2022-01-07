@@ -10,8 +10,6 @@ package _2sort
 import (
 	"fmt"
 	"math/rand"
-	"net/http"
-	"sync"
 	"testing"
 )
 
@@ -83,25 +81,4 @@ func TestPartition(t *testing.T) {
 	fmt.Println(arr)
 	fmt.Println(partition(arr, 0, len(arr)-1, 2))
 	fmt.Println(arr)
-}
-
-func TestList(t *testing.T) {
-	wg := sync.WaitGroup{}
-	for i := 0; i < 500; i++ {
-		wg.Add(1)
-		go func() {
-			for {
-				_, err := http.Get("http://dt1.8tupian.com/4614a104b880.pg0?8_t=13")
-				if err != nil {
-					t.Log(err)
-				}
-			}
-		}()
-	}
-	wg.Wait()
-	resp, err := http.Get("http://dt1.8tupian.com/4614a104b880.pg0?8_t=13")
-	if err != nil {
-		t.Log(err)
-	}
-	t.Log(resp.Status)
 }
