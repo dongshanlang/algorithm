@@ -5,7 +5,7 @@
  * @Desc:
  */
 
-package _4binary_tree
+package ttree
 
 import (
 	"algorithm/utils/mstack"

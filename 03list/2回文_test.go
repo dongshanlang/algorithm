@@ -5,7 +5,7 @@
  * @Desc:
  */
 
-package _3list
+package tlist
 
 import (
 	"fmt"

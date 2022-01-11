@@ -5,7 +5,7 @@
  * @Desc:
  */
 
-package _2sort
+package tsort
 
 import (
 	"fmt"

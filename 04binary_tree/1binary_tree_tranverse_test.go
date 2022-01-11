@@ -5,18 +5,13 @@
  * @Desc:
  */
 
-package _4binary_tree
+package ttree
 
 import (
 	"container/list"
 	"fmt"
 	"testing"
 )
-
-type Node struct {
-	Value       int
-	Left, Right *Node
-}
 
 func preTraverse(node *Node) {
 	if node == nil {
