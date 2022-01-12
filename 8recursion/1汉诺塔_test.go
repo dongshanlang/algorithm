@@ -5,7 +5,7 @@
  * @Desc:
  */
 
-package _recursion
+package trecursion
 
 import (
 	"fmt"
