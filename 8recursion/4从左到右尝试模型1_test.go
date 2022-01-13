@@ -61,8 +61,6 @@ func (s *SpecialNum2Letter) process(str, cur string, index int, queue *mqueue.MQ
 }
 
 func TestGetNumber2Letter(t *testing.T) {
-	str := "123"
-	fmt.Println(str[1:2])
 	var nl SpecialNum2Letter
 	queue := mqueue.New()
 	nl.process("1110", "", 0, queue)
