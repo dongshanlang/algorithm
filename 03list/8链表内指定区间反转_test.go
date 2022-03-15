@@ -42,7 +42,7 @@ type ListNode struct {
 
 func TestReverseBetween(t *testing.T) {
 	head := initList()
-	reverseBetween(head, 2, 3)
+	reverseBetween(head, 1, 1)
 	for head != nil {
 		fmt.Println(head.Val)
 		head = head.Next
@@ -57,7 +57,7 @@ func TestReverseBetween(t *testing.T) {
  * @return ListNode类
  */
 func reverseBetween(head *ListNode, m int, n int) *ListNode {
-	if head == nil {
+	if head == nil || n <= m {
 		return head
 	}
 	var betweenStart = head
@@ -77,7 +77,7 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 }
 
 func reverseNList(head *ListNode, count int) (newStart, newStop *ListNode) {
-	if head == nil || head.Next == nil {
+	if head == nil || head.Next == nil || count == 0 {
 		return head, head
 	}
 	preStep := head
