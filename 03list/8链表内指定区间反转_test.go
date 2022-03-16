@@ -11,7 +11,7 @@
 //给出的链表为 1\to 2 \to 3 \to 4 \to 5 \to NULL1→2→3→4→5→NULL, m=2,n=4m=2,n=4,
 //返回 1\to 4\to 3\to 2\to 5\to NULL1→4→3→2→5→NULL.
 //
-//数据范围： 链表长度 0 < size \le 10000<size≤1000，0 < m \le n \le size0<m≤n≤size，链表中每个节点的值满足 |val| \le 1000∣val∣≤1000
+//数据范围： 链表长度 0 < size <= 10000, 0 < m <= n <= size，链表中每个节点的值满足 |val| <= 1000
 //要求：时间复杂度 O(n)O(n) ，空间复杂度 O(n)O(n)
 //进阶：时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)
 //示例1
@@ -42,10 +42,10 @@ type ListNode struct {
 
 func TestReverseBetween(t *testing.T) {
 	head := initList()
-	reverseBetween(head, 1, 1)
-	for head != nil {
-		fmt.Println(head.Val)
-		head = head.Next
+	newHead := reverseBetween(head, 1, 6)
+	for newHead != nil {
+		fmt.Println(newHead.Val)
+		newHead = newHead.Next
 	}
 }
 
@@ -56,24 +56,32 @@ func TestReverseBetween(t *testing.T) {
  * @param n int整型
  * @return ListNode类
  */
+
 func reverseBetween(head *ListNode, m int, n int) *ListNode {
-	if head == nil || n <= m {
+	if head == nil || head.Next == nil {
 		return head
 	}
-	var betweenStart = head
-	moveNumber := 1
-	for ; moveNumber < m-1; moveNumber++ {
-		betweenStart = betweenStart.Next
+	beforeMidHead := head
+	for i := 2; i < m; i++ {
+		beforeMidHead = beforeMidHead.Next
 	}
-	var betweenStop = betweenStart
-
-	for ; moveNumber < n+1; moveNumber++ {
-		betweenStop = betweenStop.Next
+	afterMidTail := head
+	for i := 0; i < n; i++ {
+		afterMidTail = afterMidTail.Next
 	}
-	newStart, newStop := reverseNList(betweenStart.Next, n-m)
-	betweenStart.Next = newStart
-	newStop.Next = betweenStop
-	return head
+	var midHead, midTail *ListNode
+	if m == 1 {
+		midHead, midTail = reverseNList(beforeMidHead, n-m)
+	} else {
+		midHead, midTail = reverseNList(beforeMidHead.Next, n-m)
+	}
+	midTail.Next = afterMidTail
+	if m != 1 {
+		beforeMidHead.Next = midHead
+		return head
+	} else {
+		return midHead
+	}
 }
 
 func reverseNList(head *ListNode, count int) (newStart, newStop *ListNode) {
@@ -84,12 +92,10 @@ func reverseNList(head *ListNode, count int) (newStart, newStop *ListNode) {
 	curStep := preStep.Next
 	nextStep := curStep.Next
 	for i := 0; curStep != nil && i < count; i++ {
+		nextStep = curStep.Next
 		curStep.Next = preStep
 		preStep = curStep
 		curStep = nextStep
-		if nextStep != nil {
-			nextStep = nextStep.Next
-		}
 	}
 	head.Next = nil
 
@@ -97,7 +103,7 @@ func reverseNList(head *ListNode, count int) (newStart, newStop *ListNode) {
 }
 func TestReverseListN(t *testing.T) {
 	head := initList()
-	newStart, newStop := reverseNList(head, 3)
+	newStart, newStop := reverseNList(head, 2)
 	for newStart != nil {
 		fmt.Println(newStart.Val)
 		newStart = newStart.Next
