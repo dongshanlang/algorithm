@@ -131,15 +131,15 @@ func initList() *ListNode {
 		Val:  5,
 		Next: nil,
 	}
-	n6 := ListNode{
-		Val:  6,
-		Next: nil,
-	}
+	//n6 := ListNode{
+	//	Val:  6,
+	//	Next: nil,
+	//}
 
 	n1.Next = &n2
 	n2.Next = &n3
 	n3.Next = &n4
 	n4.Next = &n5
-	n5.Next = &n6
+	//n5.Next = &n6
 	return &n1
 }
