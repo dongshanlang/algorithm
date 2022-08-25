@@ -85,7 +85,7 @@ func Find(target int, array [][]int) bool {
 	}
 	return false
 }
-func TestFOr(t *testing.T) {
+func TestFor(t *testing.T) {
 	arr := [][]int{{1, 2, 8, 9}, {2, 4, 9, 12}, {4, 7, 10, 13}, {6, 8, 11, 15}}
 	fmt.Println(Find(15, arr))
 }

@@ -134,3 +134,43 @@ func levelOrder(root *TreeNode) [][]int {
 	fmt.Println(currentLevel)
 	return result[0 : len(result)-1]
 }
+
+func TestLevelTranverse1(t *testing.T) {
+	n1 := &TreeNode{Val: 1}
+	n2 := &TreeNode{Val: 2}
+	n3 := &TreeNode{Val: 3}
+	n4 := &TreeNode{Val: 4}
+	n5 := &TreeNode{Val: 5}
+	n6 := &TreeNode{Val: 6}
+	n7 := &TreeNode{Val: 7}
+	n8 := &TreeNode{Val: 8}
+	n9 := &TreeNode{Val: 9}
+	n1.Left = n2
+	n1.Right = n3
+	n2.Left = n4
+	n2.Right = n5
+	n3.Left = n6
+	n3.Right = n7
+	n5.Left = n8
+	n5.Right = n9
+	var orderNodes []*TreeNode
+	cur := n1
+	orderNodes = append(orderNodes, cur)
+	var step int
+	for cur != nil {
+		if cur.Left != nil {
+			orderNodes = append(orderNodes, cur.Left)
+		}
+		if cur.Right != nil {
+			orderNodes = append(orderNodes, cur.Right)
+		}
+		step++
+		if step >= len(orderNodes) {
+			break
+		}
+		cur = orderNodes[step]
+	}
+	for _, v := range orderNodes {
+		fmt.Println(v.Val)
+	}
+}
