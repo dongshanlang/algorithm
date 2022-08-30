@@ -22,6 +22,12 @@ type Node struct {
 	Next  *Node
 }
 
+type DoubleNode struct {
+	Value int
+	Next  *DoubleNode
+	Pre   *DoubleNode
+}
+
 //找到链表第一个如环节点，如果无环返回null
 func getLoopNode(head Node) {
 	//1.快指针、满指针同时走
